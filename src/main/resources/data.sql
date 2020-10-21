@@ -7,15 +7,15 @@ CREATE TABLE Habitaciones(
 
 CREATE TABLE Categorias(
   idCategoria INT AUTO_INCREMENT  PRIMARY KEY,
-  Nombre VARCHAR(250) NOT NULL,
-  CantidadLimite INT NOT NULL
+  nombre VARCHAR(250) NOT NULL,
+  cantidadLimite INT NOT NULL
 );
 
 CREATE TABLE Usuario(
   idUsuario INT AUTO_INCREMENT  PRIMARY KEY,
-  Nombre VARCHAR(250) NOT NULL,
-  DNI CHAR(8) NOT NULL,
-  Rol VARCHAR(250) NOT NULL
+  nombre VARCHAR(250) NOT NULL,
+  dni CHAR(8) NOT NULL,
+  rol VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE HabitacionUsuarioReserva(

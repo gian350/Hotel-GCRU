@@ -6,6 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.gcru.*;
+
+
 @SpringBootApplication
 public class HotelGcruApplication implements CommandLineRunner{
 
