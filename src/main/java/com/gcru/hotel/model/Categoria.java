@@ -1,24 +1,39 @@
-package com.gcru.model;
+package com.gcru.hotel.model;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Categorias")
-public class Categoria {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-	@Column(name = "idCategoria")
+@Entity
+@Table(name = "CATEGORIAS")
+public class Categoria implements Serializable{
+
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@Column(name = "ID_CATEGORIA")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCategoria;
 	
-	@Column(name = "nombre")
+	@Column(name = "NOMBRE")
 	private String nombre;
 	
-	@Column(name = "cantidadLimite")
+	@Column(name = "CANTIDAD_LIMITE")
 	private int cantidadLimite;
-
+	
+	
 	public Categoria(Long idCategoria, String nombre, int cantidadLimite) {
 		super();
 		this.idCategoria = idCategoria;
@@ -53,6 +68,9 @@ public class Categoria {
 	public void setCantidadLimite(int cantidadLimite) {
 		this.cantidadLimite = cantidadLimite;
 	}
+
+	
+	
 	
 	
 	
