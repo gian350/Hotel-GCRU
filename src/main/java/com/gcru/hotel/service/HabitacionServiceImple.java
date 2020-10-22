@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gcru.hotel.model.Habitacion;
+import com.gcru.hotel.model.Usuario;
 import com.gcru.hotel.repository.HabitacionRepository;
 
 @Service("habitacionService")
@@ -19,11 +20,15 @@ public class HabitacionServiceImple implements HabitacionService {
 	HabitacionRepository habitacionRepository;
 	
 	@Override
-	public void saveHabitacion(Habitacion habi) {
+	public Habitacion saveHabitacion(Habitacion habi) {
 		// TODO Auto-generated method stub
+		Habitacion ha = null;
 		if(habi != null) {
-			habitacionRepository.save(habi);
+			ha = new Habitacion();
+			ha = habitacionRepository.save(habi);
+			return ha; 
 		}
+		return ha;
 	}
 
 	@Override
@@ -44,6 +49,7 @@ public class HabitacionServiceImple implements HabitacionService {
 		Habitacion ca = null;
 		if(habitacionRepository.findById(id).isPresent()) {
 			ca = new Habitacion();
+			ca.setIdHabitacion(habi.getIdHabitacion());
 			ca.setEstadoActual(habi.getEstadoActual());
 			ca.setCategoria(habi.getCategoria());
 			habitacionRepository.save(ca);
@@ -56,6 +62,13 @@ public class HabitacionServiceImple implements HabitacionService {
 	public List<Habitacion> findAllHabitacion() {
 		// TODO Auto-generated method stub
 		return habitacionRepository.findAll();
+	}
+	
+	
+	public Habitacion findOne(Long id) {
+		Optional<Habitacion> obj = habitacionRepository.findById(id);
+	     if(obj.isPresent()) return obj.get();
+	     return null;
 	}
 
 }

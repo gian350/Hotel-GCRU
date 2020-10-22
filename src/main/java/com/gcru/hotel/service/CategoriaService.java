@@ -12,7 +12,7 @@ import com.gcru.hotel.model.Habitacion;
 
 public interface CategoriaService {
 
-	void saveCategoria(Categoria cate);
+	Categoria saveCategoria(Categoria cate);
 	
 	Categoria deleteCategoria(Long idCate);
 	

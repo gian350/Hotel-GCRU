@@ -19,9 +19,17 @@ public class CategoriaServiceImple implements CategoriaService {
 	CategoriaRepository categoriaRepository;
 	
 	@Override
-	public void saveCategoria(Categoria cate) {
+	public Categoria saveCategoria(Categoria cate) {
 		// TODO Auto-generated method stub
-		categoriaRepository.save(cate);
+		Categoria ca = null;
+		if(cate != null) {
+			ca = new Categoria();
+			ca = categoriaRepository.save(cate);
+			return ca;
+		}
+		return ca;
+		
+		
 	}
 
 	@Override

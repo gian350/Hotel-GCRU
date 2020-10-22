@@ -1,13 +1,9 @@
 package com.gcru.hotel.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Usuario")
@@ -18,17 +14,27 @@ public class Usuario implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idUsuario")
+	@Column(name = "ID_USUARIO")
 	private Long idUsuario;
 	
-	@Column(name = "nombre")
+	@Column(name = "NOMBRE")
 	private String nombre;
 	
-	@Column(name = "dni")
+	@Column(name = "DNI")
 	private String dni;
 	
-	@Column(name = "rol")
+	@Column(name = "ROL")
 	private String rol;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "RESERVAS",
+            joinColumns = {
+                    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "ID_HABITACION", referencedColumnName = "ID_HABITACION",
+                            nullable = false, updatable = false)})
+    private List<Habitacion> habitaciones;
 	
 	public Usuario(Long idUsuario, String nombre, String dni, String rol) {
 		super();
@@ -70,6 +76,14 @@ public class Usuario implements Serializable{
 	
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
 	
 	

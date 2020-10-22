@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,12 +42,12 @@ public class CategoriaController {
   	@RequestMapping(value="/createCategoria", method = RequestMethod.POST, headers = "Accept=application/json")
   	public ResponseEntity<Categoria> createCategoria(@RequestBody Categoria cate){
   		
-  		if (cate.getNombre().equals(null) || (cate.getIdCategoria() instanceof Long )) {
-  			return new ResponseEntity(HttpStatus.NO_CONTENT);
+  		if (cate == null) {
+  			return new ResponseEntity<Categoria>(HttpStatus.NO_CONTENT);
   		}
   		
-  		categoriaService.saveCategoria(cate);
-  		return new ResponseEntity<Categoria>(cate, HttpStatus.CREATED);
+  		Categoria ca = categoriaService.saveCategoria(cate);
+  		return new ResponseEntity<Categoria>(ca, HttpStatus.CREATED);
   	}
     
   	
@@ -58,7 +57,7 @@ public class CategoriaController {
   		
   		Categoria currentCategoria = categoriaService.updateCategoria(cate);
   		if(currentCategoria == null) {
-  			return new ResponseEntity(HttpStatus.NOT_FOUND);
+  			return new ResponseEntity<Categoria>(HttpStatus.NOT_FOUND);
   		}else {
   			return new ResponseEntity<Categoria>(currentCategoria,HttpStatus.OK); 
   		}
@@ -73,9 +72,20 @@ public class CategoriaController {
 		if(ca != null) {
 			return new ResponseEntity<Categoria>(ca,HttpStatus.OK); 
 		}else {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Categoria>(HttpStatus.NOT_FOUND);
 		}
 		
+	}
+  	
+  	public String [] vector = {"estandar","normal","suite"};
+  	
+	public boolean buscarNombreCate(String nombre) {
+		for(int i = 0;i<vector.length;i++) {
+	  		if(nombre.equals(vector[i])) {
+	  			return true;
+	  		}
+	  	}
+		return false;
 	}
     
 

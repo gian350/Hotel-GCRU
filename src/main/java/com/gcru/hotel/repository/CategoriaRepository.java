@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.gcru.hotel.model.Categoria;
 
 @Repository
-@Transactional
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 }
