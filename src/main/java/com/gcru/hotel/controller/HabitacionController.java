@@ -59,34 +59,31 @@ public class HabitacionController {
   		
   		
   		if(habi != null) {
-  			String estadoAntiguo = habitacionService.findOne(habi.getIdHabitacion()).getEstadoActual();
-  			Habitacion currentHabitacion = habitacionService.updateHabitacion(habi);
-  	  		String estadoNuevo = habi.getEstadoActual();
-  	  		
-  	  		System.out.println(estadoAntiguo);
-  	  		System.out.println(estadoNuevo);
-  	  		
-  	  		if((estadoAntiguo.equals("libre") && estadoNuevo.equals("ocupada")) || 
-  	  		(estadoAntiguo.equals("libre") && estadoNuevo.equals("mantenimiento"))  ||
-  	  		(estadoAntiguo.equals("ocupada") && estadoNuevo.equals("mantenimiento")) ||
-  	  		(estadoAntiguo.equals("ocupada") && estadoNuevo.equals("limpieza")) ||
-  	  		(estadoAntiguo.equals("limpieza") && estadoNuevo.equals("libre")) ||
-  	  		(estadoAntiguo.equals("limpieza") && estadoNuevo.equals("mantenimiento")) ||
-  	  		(estadoAntiguo.equals("mantenimiento") && estadoNuevo.equals("libre")) ||
-  	  		(estadoAntiguo.equals("mantenimiento") && estadoNuevo.equals("limpieza")) 
-  	  		) {
-	  	  		if(currentHabitacion == null) {
-		  			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		  		}else {
-		  			return new ResponseEntity<Habitacion>(currentHabitacion,HttpStatus.OK); 
-		  		}
-  	  		}else {
-  	  			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-  	  		}
-  	  		
-
-  	  			
-  	  			
+  			Habitacion currentBuscado  = habitacionService.findOne(habi.getIdHabitacion());
+  			if(currentBuscado != null) {
+  				String estadoAntiguo = currentBuscado.getEstadoActual();
+  	  	  		String estadoNuevo = habi.getEstadoActual();
+  	  	  		
+  	  	  		System.out.println(estadoAntiguo);
+  	  	  		System.out.println(estadoNuevo);
+  	  	  		
+  	  	  		if((estadoAntiguo.equals("libre") && estadoNuevo.equals("ocupada")) || 
+  	  	  		(estadoAntiguo.equals("libre") && estadoNuevo.equals("mantenimiento"))  ||
+  	  	  		(estadoAntiguo.equals("ocupada") && estadoNuevo.equals("mantenimiento")) ||
+  	  	  		(estadoAntiguo.equals("ocupada") && estadoNuevo.equals("limpieza")) ||
+  	  	  		(estadoAntiguo.equals("limpieza") && estadoNuevo.equals("libre")) ||
+  	  	  		(estadoAntiguo.equals("limpieza") && estadoNuevo.equals("mantenimiento")) ||
+  	  	  		(estadoAntiguo.equals("mantenimiento") && estadoNuevo.equals("libre")) ||
+  	  	  		(estadoAntiguo.equals("mantenimiento") && estadoNuevo.equals("limpieza")) 
+  	  	  		) {
+  	  	  			Habitacion currentHabitacion = habitacionService.updateHabitacion(habi);
+  			  		return new ResponseEntity<Habitacion>(currentHabitacion,HttpStatus.OK); 
+  	  	  		}else {
+  	  	  			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+  	  	  		}
+  			}else {
+  				return new ResponseEntity(HttpStatus.NOT_FOUND);
+  			}	
 	  	  	
   	  		
   		}
